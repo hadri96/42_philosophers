@@ -5,21 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 14:37:22 by hmorand           #+#    #+#             */
-/*   Updated: 2024/02/21 14:37:22 by hmorand          ###   ########.ch       */
+/*   Created: 2024/07/28 17:03:26 by hmorand           #+#    #+#             */
+/*   Updated: 2024/07/28 17:03:38 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	static	ft_isspace(char c)
+static	int	ft_isspace(char c)
 {
 	if ((c >= 9 && c <= 13) || c == ' ')
 		return (1);
 	return (0);
 }
 
-void	static	ft_strip(const char *str, int *i, int *result)
+static	void	ft_strip(const char *str, int *i, int *result)
 {
 	*result = 0;
 	*i = 0;
@@ -27,7 +27,7 @@ void	static	ft_strip(const char *str, int *i, int *result)
 		(*i)++;
 }
 
-void	static	ft_sign(const char c, int *signs, int *sign)
+static	void	ft_sign(const char c, int *signs, int *sign)
 {
 	(*signs)++;
 	if (c == '-')

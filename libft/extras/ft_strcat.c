@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hmorand <hmorand@student.42.fr>            +#+  +:+       +#+        */
+/*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 10:58:27 by hmorand           #+#    #+#             */
-/*   Updated: 2023/08/11 11:19:56 by hmorand          ###   ########.fr       */
+/*   Created: 2024/07/28 17:02:25 by hmorand           #+#    #+#             */
+/*   Updated: 2024/07/28 17:02:25 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-size_t	static	ft_strlen(char *str)
+static	size_t	ft_strlen(char *str)
 {
 	int	i;
 

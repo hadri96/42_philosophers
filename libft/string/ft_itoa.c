@@ -5,14 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 14:37:17 by hmorand           #+#    #+#             */
-/*   Updated: 2024/02/21 14:37:17 by hmorand          ###   ########.ch       */
+/*   Created: 2024/07/28 17:04:32 by hmorand           #+#    #+#             */
+/*   Updated: 2024/07/28 17:04:32 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	static	n_digits(int nb)
+static	int	n_digits(int nb)
 {
 	int	i;
 
