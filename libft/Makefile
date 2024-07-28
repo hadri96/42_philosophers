@@ -27,11 +27,11 @@ EXTRASDIR =		extras
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(AR) $@ $^
+	@$(AR) $@ $^
 
 $(OBJECTDIR)/%.o:	./%.c
 					@mkdir -p $(@D)
-					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
+					@$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
 
 clean:
 	@$(RM)	$(OBJECTDIR)
