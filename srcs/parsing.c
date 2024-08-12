@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 15:02:21 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 15:02:21 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/12 16:04:53 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/12 16:04:53 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,7 @@ t_data	*init_data(void)
 {
 	t_data	*data;
 
-	data = malloc(sizeof(t_data));
-	if (!data)
-	{
-		error_exit(FULL_ERROR, data);
-		exit(EXIT_FAILURE);
-	}
+	data = safe_malloc(sizeof(t_data));
 	return (data);
 }
 
@@ -64,7 +59,7 @@ int	parse_input(int ac, char **av, t_data *d)
 	char	*times;
 
 	if (check_numeric(ac, av, &times))
-		return (error_exit(NON_NUMERIC, d), 1);
+		return (error_exit(NON_NUMERIC), 1);
 	d->n_philos = ft_atol(av[1]);
 	d->time_to_die = ft_atol(av[2]) * 1e3;
 	d->time_to_eat = ft_atol(av[3]) * 1e3;
@@ -80,6 +75,6 @@ int	parse_input(int ac, char **av, t_data *d)
 		|| (ac == 6 && d->limit_meals < 1) || d->n_philos > INT_MAX
 		|| d->time_to_die > INT_MAX || d->time_to_eat > INT_MAX
 		|| d->time_to_sleep > INT_MAX || d->limit_meals > INT_MAX)
-		return (error_exit(INVALID_NUMBERS, d), 1);
+		return (error_exit(INVALID_NUMBERS), 1);
 	return (0);
 }

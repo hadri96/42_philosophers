@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 13:41:11 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 13:41:20 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/12 18:00:57 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/12 18:00:57 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,25 @@
 					  // threads: create join detach
 # include <sys/time.h> // gettimeofday
 # include <limits.h>
+# include <errno.h>
 # include "../libft/libft.h"
 
-#define BOLD_WHITE		"\033[1;37m"
-#define BOLD_RED		"\033[1;31m"
-#define BOLD_GREEN		"\033[1;32m"
-#define BOLD_YELLOW		"\033[1;33m"
-#define BOLD_BLUE		"\033[1;34m"
-#define BOLD_MAGENTA	"\033[1;35m"
-#define BOLD_CYAN		"\033[1;36m"
-#define BOLD_BLACK		"\033[1;30m"
-#define RESET			"\033[0m"
+
+# define BGWH	"\033[1;37m"
+# define BGR	"\033[1;31m"
+# define R		"\033[0;31m"
+# define BGGR	"\033[1;32m"
+# define GR		"\033[0;32m"
+# define BGY	"\033[1;33m"
+# define Y		"\033[0;33m"
+# define BGB	"\033[1;34m"
+# define BL		"\033[0;34m"
+# define BGMG	"\033[1;35m"
+# define MG		"\033[0;35m"
+# define BGCY	"\033[1;36m"
+# define CY		"\033[0;36m"
+# define BGBLA	"\033[1;30m"
+# define RST	"\033[0m"
 
 typedef pthread_mutex_t	t_mutex;
 typedef struct s_data	t_data;
@@ -47,9 +55,21 @@ typedef enum e_state
 	EATING,
 	SLEEPING,
 	THINKING,
+	TAKE_FIRST,
+	TAKE_SECOND,
 	DEAD,
-	FULL
 }	t_state;
+
+typedef enum e_opcode
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH
+}	t_opcode;
 
 typedef enum e_error
 {
@@ -57,8 +77,30 @@ typedef enum e_error
 	NOT_ENOUGH_ARGS,
 	NON_NUMERIC,
 	INVALID_NUMBERS,
-	FULL_ERROR
+	MUTEX_INVALID,
+	BUSY,
+	NO_MEMORY,
+	NO_LOCK,
+	LOCKED,
+	DEAD_MUTEX,
+	ATTR_INVALID,
+	NO_RESOURCE,
+	NOT_JOINABLE,
+	THREAD_NOT_FOUND,
+	DEADLOCK,
+	NOT_OWNER,
+	THREAD_INIT,
+	MUTEX_INIT,
+	CHRONO,
+	WRONG_UNIT
 }	t_error;
+
+typedef enum e_unit
+{
+	MICRO,
+	MILLI,
+	SEC
+}	t_unit;
 
 typedef struct s_philo
 {
@@ -66,8 +108,8 @@ typedef struct s_philo
 	long		meals_counter;
 	bool		full;
 	long		last_meal_time;
-	t_fork		*left_fork;
-	t_fork		*right_fork;
+	t_fork		*second_fork;
+	t_fork		*first_fork;
 	pthread_t	thread_id;
 	t_data		*data;
 }	t_philo;
@@ -80,14 +122,17 @@ typedef struct s_data
 	long	time_to_sleep;
 	long	limit_meals;
 	long	start_sim;
+	bool	all_ready;
 	bool	end_sim;
+	t_mutex	data_mutex;
+	t_mutex	display;
 	t_fork	*forks;
 	t_philo	*philos;
 }	t_data;
 
 /*****************************************************************************/
 /*                                                                           */
-/*                                PARSING                                    */
+/*                                  PARSING                                  */
 /*                                                                           */
 /*****************************************************************************/
 
@@ -96,12 +141,63 @@ int		parse_input(int ac, char **av, t_data *data);
 
 /*****************************************************************************/
 /*                                                                           */
-/*                                 UTILS                                     */
+/*                                   UTILS                                   */
 /*                                                                           */
 /*****************************************************************************/
 
-void	error_exit(t_error error, t_data *data);
-void	display_data(t_data *data);
+void	error_exit(t_error error);
 void	destroy_data(t_data *data);
+
+/* DISPLAY UTILS */
+
+void	display_data(t_data *data);
+
+
+/*****************************************************************************/
+/*                                                                           */
+/*                                 SAFE UTILS                                */
+/*                                                                           */
+/*****************************************************************************/
+
+void	safe_mutex_handle(t_mutex *mutex, t_opcode opcode);
+void	safe_thread_handle(pthread_t *thread, void *(*func) (void *),
+			t_opcode op, void *data);
+
+/*****************************************************************************/
+/*                                                                           */
+/*                               INITIALIZATION                              */
+/*                                                                           */
+/*****************************************************************************/
+
+void	fill_data(t_data *data);
+
+/*****************************************************************************/
+/*                                                                           */
+/*                                GETTERS/SETTERS                            */
+/*                                                                           */
+/*****************************************************************************/
+
+void	set_bool(t_mutex *mutex, bool *dest, bool value);
+bool	get_bool(t_mutex *mutex, bool *value);
+bool	get_end(t_data *data);
+void	set_long(t_mutex *mutex, long *dest, long value);
+long	get_long(t_mutex *mutex, long *value);
+
+/*****************************************************************************/
+/*                                                                           */
+/*                                SYNCHRONIZATION                            */
+/*                                                                           */
+/*****************************************************************************/
+
+void	wait_all_threads(t_data	*data);
+
+/*****************************************************************************/
+/*                                                                           */
+/*                                  TIME UTILS                               */
+/*                                                                           */
+/*****************************************************************************/
+
+long	get_time(t_unit unit);
+void	ft_usleep(long usec, t_data *data);
 
 #endif

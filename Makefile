@@ -3,19 +3,24 @@ NAME = 			philo
 INCLUDES =		includes
 
 SRCS = 			srcs/philo_utils.c \
+				srcs/display_utils.c \
+				srcs/philo_safe_utils.c \
+				srcs/philo_init.c \
+				srcs/getters_setters.c \
+				srcs/synchronization.c \
 				srcs/parsing.c \
 				srcs/main.c
 
 CC = 			gcc
 
-RED =			\033[0;31m
-GREEN =			\033[0;32m
-YELLOW =		\033[0;33m
-BLUE =			\033[0;34m
-MAGENTA =		\033[0;35m
-CYAN =			\033[0;36m
+R =			\033[0;31m
+GR =			\033[0;32m
+Y =		\033[0;33m
+BL =			\033[0;34m
+MG =		\033[0;35m
+CY =			\033[0;36m
 WHITE =			\033[0;37m
-RESET =			\033[0m
+RST =			\033[0m
 
 CFLAGS = 		-Wall -Wextra -Werror -pthread -I $(INCLUDES)
 
@@ -30,16 +35,16 @@ all:	$(NAME)
 $(NAME):	$(SRCS)
 	@make -C $(LIBFT) all
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT_LIB) $(SANITIZE)
-	@echo "$(GREEN) ✅ Compilation done! ✅$(RESET)"
+	@echo "$(GR) ✅ Compilation done! ✅$(RST)"
 
 clean:
 	rm -rf objs
-	@echo "$(RED) 🗑️ Object files deleted! 🗑️$(RESET)"
+	@echo "$(R) 🗑️ Object files deleted! 🗑️$(RST)"
 
 fclean:		clean
 	@make -C $(LIBFT) fclean
 	@rm $(NAME)
-	@echo "$(RED) 🗑️ Executable deleted! 🗑️$(RESET)"
+	@echo "$(R) 🗑️ Executable deleted! 🗑️$(RST)"
 
 
 re:			fclean all
