@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 13:17:09 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 13:17:09 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/12 15:15:15 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/12 15:15:15 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdarg.h>
 # include "garbage.h"
 # include "get_next_line.h"
+# define BGR "\033[1;31m"
+# define RST "\033[0m"
 
 /* ************************************************************************** */
 /*                                                                            */
@@ -69,6 +71,7 @@ void			*ft_memmove(void *dest, const void *src, size_t n);
 void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 void			*ft_calloc(size_t nmemb, size_t size);
+void			*safe_malloc(size_t size);
 void			free_strarr(char **arr);
 
 char			*ft_itoa(int nb);
