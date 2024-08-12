@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/28 17:19:05 by hmorand           #+#    #+#             */
-/*   Updated: 2024/07/28 17:19:05 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/12 13:41:11 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/12 13:41:20 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 					  // threads: create join detach
 # include <sys/time.h> // gettimeofday
 # include <limits.h>
+# include "../libft/libft.h"
 
 #define BOLD_WHITE		"\033[1;37m"
 #define BOLD_RED		"\033[1;31m"
@@ -40,6 +41,24 @@ typedef struct s_fork
 	t_mutex	fork;
 	int		fork_id;
 }	t_fork;
+
+typedef enum e_state
+{
+	EATING,
+	SLEEPING,
+	THINKING,
+	DEAD,
+	FULL
+}	t_state;
+
+typedef enum e_error
+{
+	ERROR_INIT,
+	NOT_ENOUGH_ARGS,
+	NON_NUMERIC,
+	INVALID_NUMBERS,
+	FULL_ERROR
+}	t_error;
 
 typedef struct s_philo
 {
@@ -66,6 +85,23 @@ typedef struct s_data
 	t_philo	*philos;
 }	t_data;
 
-void	error_exit(char *message);
+/*****************************************************************************/
+/*                                                                           */
+/*                                PARSING                                    */
+/*                                                                           */
+/*****************************************************************************/
+
+t_data	*init_data(void);
+int		parse_input(int ac, char **av, t_data *data);
+
+/*****************************************************************************/
+/*                                                                           */
+/*                                 UTILS                                     */
+/*                                                                           */
+/*****************************************************************************/
+
+void	error_exit(t_error error, t_data *data);
+void	display_data(t_data *data);
+void	destroy_data(t_data *data);
 
 #endif

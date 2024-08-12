@@ -3,6 +3,7 @@ NAME = 			philo
 INCLUDES =		includes
 
 SRCS = 			srcs/philo_utils.c \
+				srcs/parsing.c \
 				srcs/main.c
 
 CC = 			gcc
@@ -21,8 +22,8 @@ CFLAGS = 		-Wall -Wextra -Werror -I $(INCLUDES)
 LIBFT =			libft
 LIBFT_LIB =		$(LIBFT)/libft.a
 
-#SANITIZE= -g3 -fsanitize=address
-SANITIZE= -g
+SANITIZE= -g3 -fsanitize=address
+#SANITIZE= -g
 
 all:	$(NAME)
 

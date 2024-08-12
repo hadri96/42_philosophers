@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/28 16:29:32 by hmorand           #+#    #+#             */
-/*   Updated: 2024/07/28 16:29:32 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/12 13:17:09 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/12 13:17:09 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int				ft_isalnum(int c);
 int				ft_isprint(int c);
 int				ft_isascii(int c);
 int				ft_strncmp(char *s1, char *s2, size_t n);
+bool			ft_strisdigit(char *str);
 
 /* ************************************************************************** */
 /*                                                                            */

@@ -5,18 +5,30 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 14:31:24 by hmorand           #+#    #+#             */
-/*   Updated: 2024/02/21 14:31:26 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/12 13:57:34 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/12 13:58:08 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+
 
 int	ft_isdigit(int c)
 {
 	if (c < '0' || c > '9')
 		return (0);
 	return (1);
+}
+
+bool	ft_strisdigit(char *str)
+{
+	while (*str)
+	{
+		if (!ft_isdigit(*str) && *str != '-')
+			return (false);
+		str++;
+	}
+	return (true);
 }
 /*
 #include <stdio.h>
