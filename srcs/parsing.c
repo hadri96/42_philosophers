@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 13:50:41 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 13:55:45 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/12 15:02:21 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/12 15:02:21 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	parse_input(int ac, char **av, t_data *d)
 	if (check_numeric(ac, av, &times))
 		return (error_exit(NON_NUMERIC, d), 1);
 	d->n_philos = ft_atol(av[1]);
-	d->time_to_die = ft_atol(av[2]);
-	d->time_to_eat = ft_atol(av[3]);
-	d->time_to_sleep = ft_atol(av[4]);
+	d->time_to_die = ft_atol(av[2]) * 1e3;
+	d->time_to_eat = ft_atol(av[3]) * 1e3;
+	d->time_to_sleep = ft_atol(av[4]) * 1e3;
 	if (ac == 6)
 	{
 		d->limit_meals = ft_atol(times);
@@ -76,7 +76,7 @@ int	parse_input(int ac, char **av, t_data *d)
 	}
 	else
 		d->limit_meals = -1;
-	if (d->time_to_die < 1 || d->time_to_eat < 1 || d->time_to_sleep < 1
+	if (d->time_to_die < 6e4 || d->time_to_eat < 6e4 || d->time_to_sleep < 6e4
 		|| (ac == 6 && d->limit_meals < 1) || d->n_philos > INT_MAX
 		|| d->time_to_die > INT_MAX || d->time_to_eat > INT_MAX
 		|| d->time_to_sleep > INT_MAX || d->limit_meals > INT_MAX)
