@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 14:57:21 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 14:57:38 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/12 16:40:19 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/12 16:40:19 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	main(int ac, char **av)
 	{
 		data = init_data();
 		parse_input(ac, av, data);
-		display_data(data);
+		fill_data(data);
 
 		// if (init_data(&data))
 		// 	return (1);
@@ -62,7 +62,6 @@ int	main(int ac, char **av)
 	else
 	{
 		data = NULL;
-		error_exit(NOT_ENOUGH_ARGS, data);
-		return (1);
+		error_exit(NOT_ENOUGH_ARGS);
 	}
 }
