@@ -16,7 +16,7 @@ CYAN =			\033[0;36m
 WHITE =			\033[0;37m
 RESET =			\033[0m
 
-CFLAGS = 		-Wall -Wextra -Werror -I $(INCLUDES)
+CFLAGS = 		-Wall -Wextra -Werror -pthread -I $(INCLUDES)
 
 LIBFT =			libft
 LIBFT_LIB =		$(LIBFT)/libft.a
