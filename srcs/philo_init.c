@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 18:05:23 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 18:05:23 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/13 12:31:17 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/13 12:31:17 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	assign_forks(t_philo *philo, t_fork *forks, int i)
 {
 	philo->first_fork = forks + ((i + 1) % philo->data->n_philos);
 	philo->second_fork = forks + i;
-	if (philo->id % 2)
+	if (philo->id % 2 == 0)
 	{
 		philo->first_fork = forks + i;
 		philo->second_fork = forks + ((i + 1) % philo->data->n_philos);
@@ -36,6 +36,7 @@ static void	init_philos(t_data *data)
 		philo->full = false;
 		philo->meals_counter = 0;
 		philo->data = data;
+		safe_mutex_handle(&philo->mutex, INIT);
 		assign_forks(philo, data->forks, i);
 	}
 }
@@ -46,7 +47,9 @@ void	fill_data(t_data *data)
 
 	data->end_sim = false;
 	data->all_ready = false;
+	data->running_threads = 0;
 	safe_mutex_handle(&data->data_mutex, INIT);
+	safe_mutex_handle(&data->display, INIT);
 	data->philos = safe_malloc(sizeof(t_philo) * data->n_philos);
 	data->forks = safe_malloc(sizeof(t_fork) * data->n_philos);
 	i = -1;

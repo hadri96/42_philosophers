@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 16:03:18 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 16:03:58 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/13 11:49:34 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/13 11:50:05 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	handle_thread_error(int status, t_opcode opcode)
 }
 
 void	safe_thread_handle(pthread_t *thread, void *(*func) (void *),
-t_opcode op, void *data)
+	void *data, t_opcode op)
 {
 	if (op == CREATE)
 		handle_thread_error(pthread_create(thread, NULL, func, data), op);

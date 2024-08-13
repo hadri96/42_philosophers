@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 18:04:03 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 18:04:03 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/13 11:59:19 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/13 11:59:19 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_usleep(long usec, t_data *data)
 		elapsed = get_time(MICRO) - start;
 		remain = usec - elapsed;
 		if (remain > 1e3)
-			usleep(usec / 2);
+			usleep(remain / 2);
 		else
 		{
 			while (get_time(MICRO) - start < usec)

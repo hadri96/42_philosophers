@@ -1,11 +1,15 @@
 NAME = 			philo
 
 INCLUDES =		includes
+MAKEFLAGS =		--no-print-directory
 
 SRCS = 			srcs/philo_utils.c \
 				srcs/display_utils.c \
 				srcs/philo_safe_utils.c \
 				srcs/philo_init.c \
+				srcs/philo_sim_utils.c \
+				srcs/philo_sim.c \
+				srcs/time_utils.c \
 				srcs/getters_setters.c \
 				srcs/synchronization.c \
 				srcs/parsing.c \
@@ -38,7 +42,7 @@ $(NAME):	$(SRCS)
 	@echo "$(GR) ✅ Compilation done! ✅$(RST)"
 
 clean:
-	rm -rf objs
+	@rm -rf objs
 	@echo "$(R) 🗑️ Object files deleted! 🗑️$(RST)"
 
 fclean:		clean

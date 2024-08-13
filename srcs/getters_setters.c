@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 16:44:57 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 16:48:44 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/13 12:11:43 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/13 12:11:43 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ bool	get_bool(t_mutex *mutex, bool *value)
 
 bool	get_end(t_data *data)
 {
-	get_bool(&data->data_mutex, &data->end_sim);
+	return (get_bool(&data->data_mutex, &data->end_sim));
 }
 
 void	set_long(t_mutex *mutex, long *dest, long value)

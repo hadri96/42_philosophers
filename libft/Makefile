@@ -2,6 +2,7 @@ NAME = 			libft.a
 
 OBJECTDIR =		objs
 HEADERDIR =		includes
+MAKEFLAGS =		--no-print-directory
 
 SRCS =			$(shell	find . -name '*.c')
 OBJS =			$(SRCS:.%.c=$(OBJECTDIR)%.o)

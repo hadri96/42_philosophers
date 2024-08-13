@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 17:30:59 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 17:30:59 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/13 11:54:43 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/13 11:58:03 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,19 @@
 
 void	destroy_data(t_data *data)
 {
+	t_philo	*philo;
+	int		i;
+
+	i = -1;
+	while (++i < data->n_philos)
+	{
+		philo = data->philos + i;
+		safe_mutex_handle(&philo->mutex, DESTROY);
+	}
+	safe_mutex_handle(&data->display, DESTROY);
+	safe_mutex_handle(&data->data_mutex, DESTROY);
+	free(data->forks);
+	free(data->philos);
 	free(data);
 }
 
