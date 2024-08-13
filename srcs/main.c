@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 14:12:21 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/13 14:12:21 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/13 16:42:20 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/13 16:42:20 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ bool	all_full(t_data *data)
 	}
 	return (true);
 }
-
 
 int	main(int ac, char **av)
 {

@@ -5,25 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 12:15:03 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/13 12:16:01 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/13 16:42:12 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/13 16:42:12 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include <unistd.h> //usleep, write
-# include <stdlib.h> //malloc, free
+# include <unistd.h>
+# include <stdlib.h>
 # include <stdio.h>
 # include <stdbool.h>
-# include <pthread.h> // mutex: init destroy lock unlock
-					  // threads: create join detach
-# include <sys/time.h> // gettimeofday
-# include <limits.h>
+# include <pthread.h>
+# include <sys/time.h>
 # include <errno.h>
 # include "../libft/libft.h"
-
 
 # define BGWH	"\033[1;37m"
 # define BGR	"\033[1;31m"
@@ -160,7 +157,6 @@ void	display_data(t_data *data);
 void	write_status_debug(t_state state, t_philo *philo, long elapsed);
 void	write_status(t_state state, t_philo *philo, bool debug);
 
-
 /*****************************************************************************/
 /*                                                                           */
 /*                                 SAFE UTILS                                */
@@ -209,7 +205,6 @@ bool	all_threads_running(t_mutex *mutex, long *threads, long n_philos);
 
 long	get_time(t_unit unit);
 void	ft_usleep(long usec, t_data *data);
-
 
 /*****************************************************************************/
 /*                                                                           */

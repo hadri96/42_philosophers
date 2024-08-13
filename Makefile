@@ -31,8 +31,8 @@ CFLAGS = 		-Wall -Wextra -Werror -pthread -I $(INCLUDES)
 LIBFT =			libft
 LIBFT_LIB =		$(LIBFT)/libft.a
 
-SANITIZE= -g3 -fsanitize=address
-#SANITIZE= -g
+#SANITIZE= -g3 -fsanitize=address
+SANITIZE= -g -O0
 
 all:	$(NAME)
 

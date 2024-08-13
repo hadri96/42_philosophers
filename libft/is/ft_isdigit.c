@@ -5,13 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 13:57:34 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 13:58:08 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/13 16:43:23 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/13 16:43:23 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
 
 int	ft_isdigit(int c)
 {
