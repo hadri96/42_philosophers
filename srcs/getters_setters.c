@@ -5,48 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 12:11:43 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/13 12:11:43 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/14 12:48:03 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/14 12:49:05 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	set_bool(t_mutex *mutex, bool *dest, bool value)
+int	set_bool(t_mutex *mutex, int *dest, int value)
 {
-	safe_mutex_handle(mutex, LOCK);
+	if (safe_mutex_handle(mutex, LOCK))
+		return (EXIT_FAILURE);
 	*dest = value;
-	safe_mutex_handle(mutex, UNLOCK);
+	if (safe_mutex_handle(mutex, UNLOCK))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
-bool	get_bool(t_mutex *mutex, bool *value)
+int	get_bool(t_mutex *mutex, int *value)
 {
-	bool	ret;
+	int	ret;
 
-	safe_mutex_handle(mutex, LOCK);
+	if (safe_mutex_handle(mutex, LOCK))
+		return (-1);
 	ret = *value;
-	safe_mutex_handle(mutex, UNLOCK);
+	if (safe_mutex_handle(mutex, UNLOCK))
+		return (-1);
 	return (ret);
 }
 
-bool	get_end(t_data *data)
+int	get_end(t_data *data)
 {
 	return (get_bool(&data->data_mutex, &data->end_sim));
 }
 
-void	set_long(t_mutex *mutex, long *dest, long value)
+int	set_long(t_mutex *mutex, long *dest, long value)
 {
-	safe_mutex_handle(mutex, LOCK);
+	if (safe_mutex_handle(mutex, LOCK))
+		return (EXIT_FAILURE);
 	*dest = value;
-	safe_mutex_handle(mutex, UNLOCK);
+	if (safe_mutex_handle(mutex, UNLOCK))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
 long	get_long(t_mutex *mutex, long *value)
 {
 	long	ret;
 
-	safe_mutex_handle(mutex, LOCK);
+	if (safe_mutex_handle(mutex, LOCK))
+		return (-1);
 	ret = *value;
-	safe_mutex_handle(mutex, UNLOCK);
+	if (safe_mutex_handle(mutex, UNLOCK))
+		return (-1);
 	return (ret);
 }

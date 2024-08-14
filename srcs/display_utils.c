@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 14:01:46 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/13 14:06:13 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/14 13:02:33 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/14 13:02:33 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,22 +42,21 @@ void	write_status_debug(t_state state, t_philo *philo, long elapsed)
 		printf(RED"\t\t💀💀💀%6ld %d died 💀💀💀\n"RST, elapsed, philo->id);
 }
 
-void	write_status(t_state state, t_philo *philo, bool debug)
+int	write_status(t_state state, t_philo *philo)
 {
 	long	elapsed;
 
 	elapsed = get_time(MILLI) - philo->data->start_sim;
-	if (get_bool(&philo->mutex, &philo->full))
-		return ;
-	safe_mutex_handle(&philo->data->display, LOCK);
-	if (debug)
-		write_status_debug(state, philo, elapsed);
+	if (get_bool(&philo->mutex, &philo->full) == 1)
+		return (EXIT_SUCCESS);
+	if (get_bool(&philo->mutex, &philo->full) == -1
+		|| safe_mutex_handle(&philo->data->display, LOCK))
+		return (EXIT_FAILURE);
 	else
 	{
 		if ((state == TAKE_FIRST || state == TAKE_SECOND)
 			&& !get_end(philo->data))
-			printf("%ld"Y" %d has taken a fork\n" RST,
-				elapsed, philo->id);
+			printf("%ld"Y" %d has taken a fork\n" RST, elapsed, philo->id);
 		else if (state == EATING && !get_end(philo->data))
 			printf("%ld"GR" %d is sleeping\n" RST, elapsed, philo->id);
 		else if (state == EATING && !get_end(philo->data))
@@ -67,5 +66,7 @@ void	write_status(t_state state, t_philo *philo, bool debug)
 		else if (state == DEAD)
 			printf("%ld"RED" %d died\n" RST, elapsed, philo->id);
 	}
-	safe_mutex_handle(&philo->data->display, UNLOCK);
+	if (safe_mutex_handle(&philo->data->display, UNLOCK))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

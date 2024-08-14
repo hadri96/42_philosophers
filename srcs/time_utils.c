@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 11:59:19 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/13 11:59:19 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/14 12:55:08 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/14 12:55:08 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ long	get_time(t_unit unit)
 	struct timeval	tv;
 
 	if (gettimeofday(&tv, NULL))
-		error_exit(CHRONO);
+		return (error_exit(CHRONO), -1);
 	if (unit == SEC)
 		return (tv.tv_sec + tv.tv_usec / 1e6);
 	else if (unit == MILLI)
@@ -25,18 +25,18 @@ long	get_time(t_unit unit)
 	else if (unit == MICRO)
 		return (tv.tv_sec * 1e6 + tv.tv_usec);
 	else
-		error_exit(WRONG_UNIT);
+		return (error_exit(WRONG_UNIT), -1);
 	return (1);
 }
 
-void	ft_usleep(long usec, t_data *data)
+int	ft_usleep(long usec, t_data *data)
 {
 	long	start;
 	long	elapsed;
 	long	remain;
 
 	start = get_time(MICRO);
-	while (get_time(MICRO) - start < usec)
+	while (get_time(MICRO) - start < usec && get_time(MICRO) != -1)
 	{
 		if (get_end(data))
 			break ;
@@ -46,8 +46,9 @@ void	ft_usleep(long usec, t_data *data)
 			usleep(remain / 2);
 		else
 		{
-			while (get_time(MICRO) - start < usec)
+			while (get_time(MICRO) - start < usec && get_time(MICRO) != -1)
 				;
 		}
 	}
+	return (EXIT_SUCCESS);
 }

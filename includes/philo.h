@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 16:42:12 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/13 16:42:12 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/14 14:11:22 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/14 14:11:22 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <pthread.h>
 # include <sys/time.h>
 # include <errno.h>
+# include <limits.h>
 # include "../libft/libft.h"
 
 # define BGWH	"\033[1;37m"
@@ -106,7 +107,7 @@ typedef struct s_philo
 {
 	int			id;
 	long		meals_counter;
-	bool		full;
+	int			full;
 	long		last_meal_time;
 	t_fork		*second_fork;
 	t_fork		*first_fork;
@@ -124,8 +125,9 @@ typedef struct s_data
 	long		limit_meals;
 	long		start_sim;
 	long		running_threads;
-	bool		all_ready;
-	bool		end_sim;
+	int			all_ready;
+	int			end_sim;
+	int			error;
 	pthread_t	monitor;
 	t_mutex		data_mutex;
 	t_mutex		display;
@@ -149,13 +151,13 @@ int		parse_input(int ac, char **av, t_data *data);
 /*****************************************************************************/
 
 void	error_exit(t_error error);
-void	destroy_data(t_data *data);
+int		destroy_data(t_data *data);
 
 /* DISPLAY UTILS */
 
 void	display_data(t_data *data);
 void	write_status_debug(t_state state, t_philo *philo, long elapsed);
-void	write_status(t_state state, t_philo *philo, bool debug);
+int		write_status(t_state state, t_philo *philog);
 
 /*****************************************************************************/
 /*                                                                           */
@@ -163,8 +165,8 @@ void	write_status(t_state state, t_philo *philo, bool debug);
 /*                                                                           */
 /*****************************************************************************/
 
-void	safe_mutex_handle(t_mutex *mutex, t_opcode opcode);
-void	safe_thread_handle(pthread_t *thread, void *(*func) (void *),
+int		safe_mutex_handle(t_mutex *mutex, t_opcode opcode);
+int		safe_thread_handle(pthread_t *thread, void *(*func) (void *),
 			void *data, t_opcode op);
 
 /*****************************************************************************/
@@ -173,7 +175,7 @@ void	safe_thread_handle(pthread_t *thread, void *(*func) (void *),
 /*                                                                           */
 /*****************************************************************************/
 
-void	fill_data(t_data *data);
+int		fill_data(t_data *data);
 
 /*****************************************************************************/
 /*                                                                           */
@@ -181,12 +183,12 @@ void	fill_data(t_data *data);
 /*                                                                           */
 /*****************************************************************************/
 
-void	set_bool(t_mutex *mutex, bool *dest, bool value);
-bool	get_bool(t_mutex *mutex, bool *value);
-bool	get_end(t_data *data);
-void	set_long(t_mutex *mutex, long *dest, long value);
+int		set_bool(t_mutex *mutex, int *dest, int value);
+int		get_bool(t_mutex *mutex, int *value);
+int		get_end(t_data *data);
+int		set_long(t_mutex *mutex, long *dest, long value);
 long	get_long(t_mutex *mutex, long *value);
-void	increase_long(t_mutex *mutex, long *value);
+int		increase_long(t_mutex *mutex, long *value);
 
 /*****************************************************************************/
 /*                                                                           */
@@ -194,8 +196,8 @@ void	increase_long(t_mutex *mutex, long *value);
 /*                                                                           */
 /*****************************************************************************/
 
-void	wait_all_threads(t_data	*data);
-bool	all_threads_running(t_mutex *mutex, long *threads, long n_philos);
+int		wait_all_threads(t_data	*data);
+int		all_threads_running(t_mutex *mutex, long *threads, long n_philos);
 
 /*****************************************************************************/
 /*                                                                           */
@@ -204,7 +206,7 @@ bool	all_threads_running(t_mutex *mutex, long *threads, long n_philos);
 /*****************************************************************************/
 
 long	get_time(t_unit unit);
-void	ft_usleep(long usec, t_data *data);
+int		ft_usleep(long usec, t_data *data);
 
 /*****************************************************************************/
 /*                                                                           */
@@ -215,10 +217,11 @@ void	ft_usleep(long usec, t_data *data);
 /* SIMULATION UTILS */
 
 void	*monitor_dinner(void *d);
-void	ft_sleep(t_philo *philo);
+void	*one_philo(void *p);
+int		ft_sleep(t_philo *philo);
 
 /* SIMULATION MAIN */
 
-void	dinner_start(t_data *data);
+int		dinner_start(t_data *data);
 
 #endif

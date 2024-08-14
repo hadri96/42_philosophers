@@ -5,34 +5,45 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 12:10:59 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/13 12:11:14 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/14 15:51:21 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/14 15:51:27 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	wait_all_threads(t_data	*data)
+int	wait_all_threads(t_data	*data)
 {
-	while (!get_bool(&data->data_mutex, &data->all_ready))
-		;
+	int	result;
+
+	result = get_bool(&data->data_mutex, &data->all_ready);
+	while (result == 0)
+		result = get_bool(&data->data_mutex, &data->all_ready);
+	if (result == 1)
+		return (EXIT_SUCCESS);
+	return (EXIT_FAILURE);
 }
 
-bool	all_threads_running(t_mutex *mutex, long *threads, long n_philos)
+int	all_threads_running(t_mutex *mutex, long *threads, long n_philos)
 {
-	bool	running;
+	int	running;
 
-	running = false;
-	safe_mutex_handle(mutex, LOCK);
-	if (*threads == n_philos)
-		running = true;
-	safe_mutex_handle(mutex, UNLOCK);
+	running = 0;
+	if (safe_mutex_handle(mutex, LOCK))
+		return (-1);
+	if (*threads == n_philos || n_philos == 1)
+		running = 1;
+	if (safe_mutex_handle(mutex, UNLOCK))
+		return (-1);
 	return (running);
 }
 
-void	increase_long(t_mutex *mutex, long *value)
+int	increase_long(t_mutex *mutex, long *value)
 {
-	safe_mutex_handle(mutex, LOCK);
+	if (safe_mutex_handle(mutex, LOCK))
+		return (EXIT_FAILURE);
 	(*value)++;
-	safe_mutex_handle(mutex, UNLOCK);
+	if (safe_mutex_handle(mutex, UNLOCK))
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

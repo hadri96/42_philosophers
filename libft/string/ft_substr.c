@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 14:36:06 by hmorand           #+#    #+#             */
-/*   Updated: 2024/02/21 14:36:06 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/14 14:57:48 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/14 14:57:48 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		len = 0;
 		start = 0;
 	}
-	result = galloc(sizeof(char) * len + 1);
+	result = malloc(sizeof(char) * len + 1);
 	if (!result)
 		return (NULL);
 	i = 0;

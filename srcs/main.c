@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 16:42:20 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/13 16:42:20 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/14 14:11:17 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/14 14:11:17 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,22 @@ int	main(int ac, char **av)
 	if (ac == 5 || ac == 6)
 	{
 		data = init_data();
-		parse_input(ac, av, data);
-		fill_data(data);
-		dinner_start(data);
+		if (!data)
+			return (EXIT_FAILURE);
+		if (parse_input(ac, av, data))
+			return (EXIT_FAILURE);
+		if (fill_data(data) || dinner_start(data))
+		{
+			destroy_data(data);
+			return (EXIT_FAILURE);
+		}
 		if (all_full(data))
 			printf(BGGR"All philos are full!\n"RST);
-		destroy_data(data);
-		return (0);
+		return (destroy_data(data));
 	}
 	else
 	{
 		data = NULL;
-		error_exit(NOT_ENOUGH_ARGS);
+		return (error_exit(NOT_ENOUGH_ARGS), EXIT_FAILURE);
 	}
 }

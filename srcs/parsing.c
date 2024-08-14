@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/12 16:04:53 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/12 16:04:53 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/14 12:07:51 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/14 12:07:51 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ int	check_numeric(int ac, char **av, char **times)
 			|| !ft_strisdigit(*times))
 		{
 			free(*times);
-			return (1);
+			return (EXIT_FAILURE);
 		}
 	}
 	else
 	{
 		if (!ft_strisdigit(av[1]) || !ft_strisdigit(av[2])
 			|| !ft_strisdigit(av[3]) || !ft_strisdigit(av[4]))
-			return (1);
+			return (EXIT_FAILURE);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	parse_input(int ac, char **av, t_data *d)
@@ -75,6 +75,6 @@ int	parse_input(int ac, char **av, t_data *d)
 		|| (ac == 6 && d->limit_meals < 1) || d->n_philos > INT_MAX
 		|| d->time_to_die > INT_MAX || d->time_to_eat > INT_MAX
 		|| d->time_to_sleep > INT_MAX || d->limit_meals > INT_MAX)
-		return (error_exit(INVALID_NUMBERS), 1);
-	return (0);
+		return (error_exit(INVALID_NUMBERS), EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }

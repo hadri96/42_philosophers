@@ -5,29 +5,38 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/13 11:54:43 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/13 11:58:03 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/14 15:13:37 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/14 15:13:37 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	destroy_data(t_data *data)
+int	destroy_data(t_data *data)
 {
 	t_philo	*philo;
 	int		i;
 
 	i = -1;
-	while (++i < data->n_philos)
+	if (data->philos)
 	{
-		philo = data->philos + i;
-		safe_mutex_handle(&philo->mutex, DESTROY);
+		while (++i < data->n_philos)
+		{
+			philo = data->philos + i;
+			if (safe_mutex_handle(&philo->mutex, DESTROY))
+				return (EXIT_FAILURE);
+		}
 	}
-	safe_mutex_handle(&data->display, DESTROY);
-	safe_mutex_handle(&data->data_mutex, DESTROY);
-	free(data->forks);
-	free(data->philos);
-	free(data);
+	if (safe_mutex_handle(&data->display, DESTROY)
+		|| safe_mutex_handle(&data->data_mutex, DESTROY))
+		return (EXIT_FAILURE);
+	if (data->forks)
+		free(data->forks);
+	if (data->philos)
+		free(data->philos);
+	if (data)
+		free(data);
+	return (EXIT_SUCCESS);
 }
 
 void	error_exit_sub(t_error error)
@@ -81,5 +90,4 @@ meals in brackets\n"RST);
 		printf(BGR"Error: Deadlock was detected\n"RST);
 	else
 		error_exit_sub(error);
-	exit(EXIT_FAILURE);
 }
