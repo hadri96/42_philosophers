@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 14:26:03 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/14 14:26:30 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/16 17:36:57 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/16 17:37:00 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,17 @@ int	safe_thread_handle(pthread_t *thread, void *(*func) (void *),
 		return (handle_thread_error(pthread_detach(*thread), op));
 	else
 		return (error_exit(THREAD_INIT), 1);
+}
+
+void	*safe_malloc(size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(size);
+	if (!ptr)
+	{
+		printf(BGR"Error: Malloc failed\n"RST);
+		exit(EXIT_FAILURE);
+	}
+	return (ptr);
 }

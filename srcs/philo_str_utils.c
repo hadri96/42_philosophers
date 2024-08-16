@@ -1,16 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   philo_str_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 14:57:48 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/14 14:57:48 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/16 17:41:26 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/16 17:41:26 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "philo.h"
+
+int	ft_isdigit(int c)
+{
+	if (c < '0' || c > '9')
+		return (0);
+	return (1);
+}
+
+bool	ft_strisdigit(char *str)
+{
+	while (*str)
+	{
+		if (!ft_isdigit(*str) && *str != '-')
+			return (false);
+		str++;
+	}
+	return (true);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {

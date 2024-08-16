@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 14:11:22 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/14 14:11:22 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/16 17:40:35 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/16 17:41:22 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <sys/time.h>
 # include <errno.h>
 # include <limits.h>
-# include "../libft/libft.h"
+//# include "../libft/libft.h"
 
 # define BGWH	"\033[1;37m"
 # define BGR	"\033[1;31m"
@@ -159,6 +159,13 @@ void	display_data(t_data *data);
 void	write_status_debug(t_state state, t_philo *philo, long elapsed);
 int		write_status(t_state state, t_philo *philog);
 
+/* STRING UTILS */
+
+bool	ft_strisdigit(char *str);
+size_t	ft_strlen(const char *str);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+long	ft_atol(const char *str);
+
 /*****************************************************************************/
 /*                                                                           */
 /*                                 SAFE UTILS                                */
@@ -168,6 +175,7 @@ int		write_status(t_state state, t_philo *philog);
 int		safe_mutex_handle(t_mutex *mutex, t_opcode opcode);
 int		safe_thread_handle(pthread_t *thread, void *(*func) (void *),
 			void *data, t_opcode op);
+void	*safe_malloc(size_t size);
 
 /*****************************************************************************/
 /*                                                                           */

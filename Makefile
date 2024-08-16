@@ -10,6 +10,8 @@ SRCS = 			srcs/philo_utils.c \
 				srcs/philo_sim_utils.c \
 				srcs/philo_sim.c \
 				srcs/time_utils.c \
+				srcs/philo_str_utils.c \
+				srcs/ft_atol.c \
 				srcs/getters_setters.c \
 				srcs/synchronization.c \
 				srcs/parsing.c \
@@ -28,17 +30,13 @@ RST =			\033[0m
 
 CFLAGS = 		-Wall -Wextra -Werror -pthread -I $(INCLUDES)
 
-LIBFT =			libft
-LIBFT_LIB =		$(LIBFT)/libft.a
-
 #SANITIZE= -g3 -fsanitize=address
 SANITIZE= -g -O0
 
 all:	$(NAME)
 
 $(NAME):	$(SRCS)
-	@make -C $(LIBFT) all
-	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT_LIB) $(SANITIZE)
+	@$(CC) $(CFLAGS) -o $@ $^ $(SANITIZE)
 	@echo "$(GR) ✅ Compilation done! ✅$(RST)"
 
 clean:
@@ -46,7 +44,6 @@ clean:
 	@echo "$(R) 🗑️ Object files deleted! 🗑️$(RST)"
 
 fclean:		clean
-	@make -C $(LIBFT) fclean
 	@rm $(NAME)
 	@echo "$(R) 🗑️ Executable deleted! 🗑️$(RST)"
 

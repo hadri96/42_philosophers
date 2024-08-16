@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoll.c                                         :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/28 17:04:20 by hmorand           #+#    #+#             */
-/*   Updated: 2024/07/28 17:04:20 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/16 17:42:12 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/16 17:42:12 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "philo.h"
 
 static	int	ft_isspace(char c)
 {
@@ -19,7 +19,7 @@ static	int	ft_isspace(char c)
 	return (0);
 }
 
-static	void	ft_strip(const char *str, int *i, long long *result)
+static	void	ft_strip(const char *str, int *i, long *result)
 {
 	*result = 0;
 	*i = 0;
@@ -34,12 +34,12 @@ static	void	ft_sign(const char c, int *signs, int *sign)
 		(*sign) *= -1;
 }
 
-long long	ft_atoll(const char *str)
+long	ft_atol(const char *str)
 {
-	long long	result;
-	int			sign;
-	int			signs;
-	int			i;
+	long	result;
+	int		sign;
+	int		signs;
+	int		i;
 
 	signs = 0;
 	sign = 1;
