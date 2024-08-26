@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: hmorand <hmorand@student.42lausanne.ch>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/14 13:02:33 by hmorand           #+#    #+#             */
-/*   Updated: 2024/08/14 13:02:33 by hmorand          ###   ########.ch       */
+/*   Created: 2024/08/26 13:27:51 by hmorand           #+#    #+#             */
+/*   Updated: 2024/08/26 13:28:13 by hmorand          ###   ########.ch       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ int	write_status(t_state state, t_philo *philo)
 		if ((state == TAKE_FIRST || state == TAKE_SECOND)
 			&& !get_end(philo->data))
 			printf("%ld"Y" %d has taken a fork\n" RST, elapsed, philo->id);
-		else if (state == EATING && !get_end(philo->data))
+		else if (state == SLEEPING && !get_end(philo->data))
 			printf("%ld"GR" %d is sleeping\n" RST, elapsed, philo->id);
 		else if (state == EATING && !get_end(philo->data))
 			printf("%ld"CY" %d is eating\n" RST, elapsed, philo->id);
-		else if (state == EATING && !get_end(philo->data))
+		else if (state == THINKING && !get_end(philo->data))
 			printf("%ld"MG" %d is thinking\n" RST, elapsed, philo->id);
 		else if (state == DEAD)
 			printf("%ld"RED" %d died\n" RST, elapsed, philo->id);
